@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Goblins_Dance_(Battle).wav-84208ed142b29f23adc8afa8a2c1a2e6.sample"
+
+[deps]
+
+source_file="res://_Assets/Music/Goblins_Dance_(Battle).wav"
+dest_files=[ "res://.import/Goblins_Dance_(Battle).wav-84208ed142b29f23adc8afa8a2c1a2e6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/16_human_walk_stone_3.wav-1c9dfec5d16edae47a6aa3d628521f10.sample"
+
+[deps]
+
+source_file="res://_Assets/SFX/16_human_walk_stone_3.wav"
+dest_files=[ "res://.import/16_human_walk_stone_3.wav-1c9dfec5d16edae47a6aa3d628521f10.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

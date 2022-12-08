@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/19_orc_charging_loop.wav-33047c0aed90803a0f0124fe6430e0ac.sample"
+
+[deps]
+
+source_file="res://_Assets/SFX/19_orc_charging_loop.wav"
+dest_files=[ "res://.import/19_orc_charging_loop.wav-33047c0aed90803a0f0124fe6430e0ac.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

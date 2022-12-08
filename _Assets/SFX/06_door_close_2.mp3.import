@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/06_door_close_2.mp3-a01e31fcfcd3fc80fc39975f53f2c4f1.mp3str"
+
+[deps]
+
+source_file="res://_Assets/SFX/06_door_close_2.mp3"
+dest_files=[ "res://.import/06_door_close_2.mp3-a01e31fcfcd3fc80fc39975f53f2c4f1.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

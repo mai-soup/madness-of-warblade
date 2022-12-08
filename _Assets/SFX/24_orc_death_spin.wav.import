@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/24_orc_death_spin.wav-1b8d94c22b4dc3f1aaefc9ec1d1a36c3.sample"
+
+[deps]
+
+source_file="res://_Assets/SFX/24_orc_death_spin.wav"
+dest_files=[ "res://.import/24_orc_death_spin.wav-1b8d94c22b4dc3f1aaefc9ec1d1a36c3.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
