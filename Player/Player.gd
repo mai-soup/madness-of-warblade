@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+onready var animTree: = $AnimationTree
+
 const ACCELERATION: = 500
 const MAX_SPEED: = 60
 const FRICTION: = 500
@@ -16,6 +18,7 @@ func _physics_process(delta: float) -> void:
 	if input_vector != Vector2.ZERO:
 		# accelerate
 		velocity = velocity.move_toward(input_vector * MAX_SPEED, ACCELERATION * delta)
+		animTree.set("parameters/Walk/blend_position", input_vector)
 	else:
 		# decelerate
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
