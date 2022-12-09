@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://_Assets/Animations/Human/Minifantasy_CreaturesHumanBaseAnimations.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
@@ -7,8 +7,11 @@
 radius = 2.0
 height = 0.0
 
-[sub_resource type="Animation" id=3]
-length = 0.001
+[sub_resource type="Animation" id=14]
+resource_name = "IdleBottomLeft"
+length = 3.2
+loop = true
+step = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -16,10 +19,28 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 337 ]
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207 ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "IdleBottomRight"
+length = 3.2
+loop = true
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191 ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -90,6 +111,18 @@ tracks/0/keys = {
 "values": [ 368, 369, 370, 371 ]
 }
 
+[sub_resource type="AnimationNodeAnimation" id=23]
+animation = "IdleBottomRight"
+
+[sub_resource type="AnimationNodeAnimation" id=24]
+animation = "IdleBottomLeft"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id=25]
+blend_point_0/node = SubResource( 23 )
+blend_point_0/pos = 1.0
+blend_point_1/node = SubResource( 24 )
+blend_point_1/pos = -1.0
+
 [sub_resource type="AnimationNodeAnimation" id=7]
 animation = "WalkUpperRight"
 
@@ -115,10 +148,17 @@ min_space = Vector2( -1.1, -1 )
 max_space = Vector2( 1.1, 1 )
 blend_mode = 1
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=26]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=27]
+
 [sub_resource type="AnimationNodeStateMachine" id=10]
+states/Idle1D/node = SubResource( 25 )
+states/Idle1D/position = Vector2( 98, 65 )
 states/Walk/node = SubResource( 9 )
-states/Walk/position = Vector2( 98, 41 )
-start_node = "Walk"
+states/Walk/position = Vector2( 269, 65 )
+transitions = [ "Idle1D", "Walk", SubResource( 26 ), "Walk", "Idle1D", SubResource( 27 ) ]
+start_node = "Idle1D"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=11]
 
@@ -130,14 +170,15 @@ position = Vector2( 0, -3 )
 texture = ExtResource( 1 )
 hframes = 16
 vframes = 25
-frame = 337
+frame = 191
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -2 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 3 )
+anims/IdleBottomLeft = SubResource( 14 )
+anims/IdleBottomRight = SubResource( 15 )
 anims/WalkBottomLeft = SubResource( 5 )
 anims/WalkBottomRight = SubResource( 4 )
 anims/WalkUpperLeft = SubResource( 2 )
@@ -146,6 +187,6 @@ anims/WalkUpperRight = SubResource( 6 )
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 10 )
 anim_player = NodePath("../AnimationPlayer")
-active = true
 parameters/playback = SubResource( 11 )
-parameters/Walk/blend_position = Vector2( 0.00977302, 0 )
+parameters/Idle1D/blend_position = 0
+parameters/Walk/blend_position = Vector2( -0.00325763, -0.00578034 )
