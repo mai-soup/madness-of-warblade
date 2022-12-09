@@ -153,12 +153,12 @@ blend_mode = 1
 [sub_resource type="AnimationNodeStateMachineTransition" id=27]
 
 [sub_resource type="AnimationNodeStateMachine" id=10]
-states/Idle1D/node = SubResource( 25 )
-states/Idle1D/position = Vector2( 98, 65 )
+states/Idle/node = SubResource( 25 )
+states/Idle/position = Vector2( 98, 65 )
 states/Walk/node = SubResource( 9 )
 states/Walk/position = Vector2( 269, 65 )
-transitions = [ "Idle1D", "Walk", SubResource( 26 ), "Walk", "Idle1D", SubResource( 27 ) ]
-start_node = "Idle1D"
+transitions = [ "Idle", "Walk", SubResource( 26 ), "Walk", "Idle", SubResource( 27 ) ]
+start_node = "Idle"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=11]
 
@@ -188,5 +188,5 @@ anims/WalkUpperRight = SubResource( 6 )
 tree_root = SubResource( 10 )
 anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 11 )
-parameters/Idle1D/blend_position = 0
+parameters/Idle/blend_position = Vector2( 0, 0 )
 parameters/Walk/blend_position = Vector2( -0.00325763, -0.00578034 )

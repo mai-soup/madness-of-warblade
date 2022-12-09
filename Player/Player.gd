@@ -23,11 +23,11 @@ func _physics_process(delta: float) -> void:
 		# accelerate
 		velocity = velocity.move_toward(input_vector * MAX_SPEED, ACCELERATION * delta)
 		animTree.set("parameters/Walk/blend_position", input_vector)
-		animTree.set("parameters/Idle1D/blend_position", input_vector.x)
+		animTree.set("parameters/Idle/blend_position", input_vector.x)
 		animState.travel("Walk")
 	else:
 		# decelerate
-		animState.travel("Idle1D")
+		animState.travel("Idle")
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 	
 	move()
