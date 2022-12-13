@@ -26,7 +26,6 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("attack"):
 		animState.travel("Attack")
-		print(animTree.get("parameters/Attack/blend_position"))
 		is_attacking = true
 		return
 		

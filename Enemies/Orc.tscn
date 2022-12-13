@@ -1,7 +1,9 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://_Assets/Animations/Orc/Minifantasy_CreaturesOrcBaseAnimations.png" type="Texture" id=1]
 [ext_resource path="res://Enemies/Orc.gd" type="Script" id=2]
+[ext_resource path="res://Enemies/PlayerDetector.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Enemies/AttackDetector.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 2.0
@@ -21,6 +23,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 16, 17, 18, 19 ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "attack_anim_finished"
+} ]
+}
 
 [sub_resource type="Animation" id=11]
 resource_name = "AttackDownRight"
@@ -36,6 +52,20 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 3 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "attack_anim_finished"
+} ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -53,6 +83,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 48, 49, 50, 51 ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "attack_anim_finished"
+} ]
+}
 
 [sub_resource type="Animation" id=13]
 resource_name = "AttackTopRight"
@@ -68,6 +112,20 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 32, 33, 34, 35 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "attack_anim_finished"
+} ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -121,6 +179,78 @@ tracks/0/keys = {
 "values": [ 193 ]
 }
 
+[sub_resource type="Animation" id=22]
+resource_name = "WalkDownLeft"
+length = 0.8
+loop = true
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 336, 337, 338, 339 ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "WalkDownRight"
+length = 0.8
+loop = true
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 320, 321, 322, 323 ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "WalkUpLeft"
+length = 0.8
+loop = true
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 368, 369, 370, 371 ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "WalkUpRight"
+length = 0.8
+loop = true
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 352, 353, 354, 355 ]
+}
+
 [sub_resource type="AnimationNodeAnimation" id=14]
 animation = "AttackTopLeft"
 
@@ -142,6 +272,7 @@ blend_point_2/node = SubResource( 16 )
 blend_point_2/pos = Vector2( 1, 1 )
 blend_point_3/node = SubResource( 17 )
 blend_point_3/pos = Vector2( 1, -1 )
+blend_mode = 1
 
 [sub_resource type="AnimationNodeAnimation" id=5]
 animation = "IdleLeft"
@@ -155,22 +286,56 @@ blend_point_0/pos = -1.0
 blend_point_1/node = SubResource( 6 )
 blend_point_1/pos = 1.0
 
+[sub_resource type="AnimationNodeAnimation" id=25]
+animation = "WalkDownLeft"
+
+[sub_resource type="AnimationNodeAnimation" id=26]
+animation = "WalkDownRight"
+
+[sub_resource type="AnimationNodeAnimation" id=27]
+animation = "WalkUpRight"
+
+[sub_resource type="AnimationNodeAnimation" id=28]
+animation = "WalkUpLeft"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=29]
+blend_point_0/node = SubResource( 25 )
+blend_point_0/pos = Vector2( -1, 1 )
+blend_point_1/node = SubResource( 26 )
+blend_point_1/pos = Vector2( 1, 1 )
+blend_point_2/node = SubResource( 27 )
+blend_point_2/pos = Vector2( 1, -1 )
+blend_point_3/node = SubResource( 28 )
+blend_point_3/pos = Vector2( -1, -1 )
+blend_mode = 1
+
 [sub_resource type="AnimationNodeStateMachineTransition" id=19]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=20]
+switch_mode = 2
 auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=30]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=31]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=32]
 
 [sub_resource type="AnimationNodeStateMachine" id=8]
 states/Attack/node = SubResource( 18 )
 states/Attack/position = Vector2( 146, 162 )
 states/Idle/node = SubResource( 7 )
 states/Idle/position = Vector2( 146, 68 )
-transitions = [ "Idle", "Attack", SubResource( 19 ), "Attack", "Idle", SubResource( 20 ) ]
+states/Walk/node = SubResource( 29 )
+states/Walk/position = Vector2( 342, 68 )
+transitions = [ "Idle", "Attack", SubResource( 19 ), "Attack", "Idle", SubResource( 20 ), "Idle", "Walk", SubResource( 30 ), "Walk", "Idle", SubResource( 31 ), "Walk", "Attack", SubResource( 32 ) ]
 start_node = "Idle"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=9]
 
 [node name="Orc" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -192,6 +357,10 @@ anims/AttackTopRight = SubResource( 13 )
 anims/IdleLeft = SubResource( 2 )
 anims/IdleRight = SubResource( 3 )
 anims/RESET = SubResource( 4 )
+anims/WalkDownLeft = SubResource( 22 )
+anims/WalkDownRight = SubResource( 21 )
+anims/WalkUpLeft = SubResource( 23 )
+anims/WalkUpRight = SubResource( 24 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 8 )
@@ -199,3 +368,8 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 9 )
 parameters/Attack/blend_position = Vector2( 0, 0 )
 parameters/Idle/blend_position = Vector2( 0, 0 )
+parameters/Walk/blend_position = Vector2( 0, 0 )
+
+[node name="PlayerDetector" parent="." instance=ExtResource( 3 )]
+
+[node name="AttackDetector" parent="." instance=ExtResource( 4 )]

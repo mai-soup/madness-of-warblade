@@ -532,6 +532,6 @@ collision_mask = 0
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2( -6, 1 )
-rotation = -0.785398
+position = Vector2( 6, 1 )
+rotation = 0.785398
 shape = SubResource( 33 )
