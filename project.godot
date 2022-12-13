@@ -14,6 +14,10 @@ config/name="Madness of Warblade"
 run/main_scene="res://World.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+HealthUI="*res://UI/HealthUI.tscn"
+
 [debug]
 
 gdscript/warnings/return_value_discarded=false

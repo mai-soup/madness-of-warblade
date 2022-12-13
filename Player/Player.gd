@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+onready var healthManager: = $HealthManager
 onready var animTree: = $AnimationTree
 onready var animState = animTree.get("parameters/playback")
 
@@ -12,6 +13,7 @@ var is_attacking: = false
 
 func _ready() -> void:
 	animTree.active = true;
+	healthManager.connect("died", self, "die")
 
 func _physics_process(delta: float) -> void:
 	if is_attacking:
@@ -47,5 +49,12 @@ func move() -> void:
 	# reassign velocity from move and slide's remnant after collision	
 	velocity = move_and_slide(velocity)
 
+func die() -> void:
+	queue_free()
+
 func attack_anim_finished() -> void:
 	is_attacking = false
+
+func _on_Hurtbox_area_entered(_area: Area2D) -> void:
+	healthManager.current_health -= 1
+	HealthUI.update_current(healthManager.current_health)

@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 onready var playerDetector: = $PlayerDetector
 onready var attackDetector: = $AttackDetector
+onready var healthManager: = $HealthManager
 onready var animTree: = $AnimationTree
 onready var animState = animTree.get("parameters/playback")
 
@@ -17,6 +18,7 @@ var current_state = IDLE
 
 func _ready() -> void:
 	animTree.active = true;
+	healthManager.connect("died", self, "die")
 
 func _physics_process(delta: float) -> void:
 	match current_state:
@@ -51,3 +53,9 @@ func seek_player() -> void:
 		current_state = ATTACKING
 	else:
 		current_state = CHASING if playerDetector.can_see_player() else IDLE
+
+func die() -> void:
+	queue_free()
+
+func _on_Hurtbox_area_entered(_area: Area2D) -> void:
+	$HealthManager.current_health -= 1
