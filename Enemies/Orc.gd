@@ -35,6 +35,7 @@ func _physics_process(delta: float) -> void:
 			seek_player()
 		IDLE:
 			velocity = velocity.move_toward(Vector2.ZERO, 2 * FRICTION * delta)
+			animState.travel("Idle")
 			seek_player()
 	
 	move_and_slide(velocity)
