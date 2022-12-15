@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "HealthManager",
+"language": "GDScript",
+"path": "res://Player/PlayerHealthMgr.gd"
+} ]
+_global_script_class_icons={
+"HealthManager": ""
+}
+
 [application]
 
 config/name="Madness of Warblade"
@@ -16,7 +26,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-HealthUI="*res://UI/HealthUI.tscn"
+PlayerHealthMgr="*res://Player/PlayerHealthMgr.tscn"
 
 [debug]
 

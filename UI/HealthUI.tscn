@@ -10,13 +10,15 @@ margin_bottom = 40.0
 script = ExtResource( 1 )
 
 [node name="HeartsEmpty" type="TextureRect" parent="."]
+modulate = Color( 0.588235, 0.588235, 0.588235, 1 )
 margin_right = 24.0
 margin_bottom = 8.0
 texture = ExtResource( 3 )
 stretch_mode = 2
 
 [node name="HeartsFull" type="TextureRect" parent="."]
-margin_right = 24.0
+margin_right = 8.0
 margin_bottom = 8.0
 texture = ExtResource( 2 )
+expand = true
 stretch_mode = 2

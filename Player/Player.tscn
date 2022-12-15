@@ -563,7 +563,6 @@ rotation = 0.785398
 shape = SubResource( 33 )
 
 [node name="HealthManager" parent="." instance=ExtResource( 3 )]
-max_health = 3
 
 [node name="Hurtbox" parent="." instance=ExtResource( 4 )]
 
