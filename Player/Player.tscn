@@ -1,9 +1,10 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://_Assets/Animations/Human/Minifantasy_CreaturesHumanBaseAnimations.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://HealthManager.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Boxes/Hurtbox.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Boxes/Hitbox.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 2.0
@@ -512,9 +513,8 @@ start_node = "Idle"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=11]
 
-[sub_resource type="CapsuleShape2D" id=33]
-radius = 3.53553
-height = 8.48528
+[sub_resource type="CircleShape2D" id=42]
+radius = 2.0
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 6
@@ -552,18 +552,17 @@ parameters/Attack/blend_position = Vector2( 0, 0 )
 parameters/Idle/blend_position = Vector2( 0, 0 )
 parameters/Walk/blend_position = Vector2( -0.00325763, -0.00578034 )
 
-[node name="Hitbox" type="Area2D" parent="."]
-collision_layer = 8
-collision_mask = 0
-monitoring = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2( 6, 1 )
-rotation = 0.785398
-shape = SubResource( 33 )
+[node name="Hitbox" parent="." instance=ExtResource( 5 )]
 
 [node name="HealthManager" parent="." instance=ExtResource( 3 )]
 
 [node name="Hurtbox" parent="." instance=ExtResource( 4 )]
+collision_mask = 32
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2( 0, -2 )
+shape = SubResource( 42 )
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+
+[editable path="Hurtbox"]

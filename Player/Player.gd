@@ -15,8 +15,6 @@ func _ready() -> void:
 	PlayerHealthMgr.connect("died", self, "die")
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("ui_focus_next"):
-		_on_Hurtbox_area_entered(null)
 	
 	if is_attacking:
 		velocity = velocity.move_toward(Vector2.ZERO, 2 * FRICTION * delta)
