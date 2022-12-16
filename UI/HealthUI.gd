@@ -19,4 +19,3 @@ func update_max(new: int) -> void:
 func update_current(new: int) -> void:
 	current_health = clamp(new, 0, max_health)
 	full.rect_size.x = current_health * HEART_SIZE
-	print("update health with " + str(new) + ", size is " + str(full.rect_size.x))

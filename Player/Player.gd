@@ -9,13 +9,18 @@ const FRICTION: = 500
 
 var velocity: = Vector2.ZERO
 var is_attacking: = false
+var is_hurting: = false
 
 func _ready() -> void:
 	animTree.active = true;
 	PlayerHealthMgr.connect("died", self, "die")
 
 func _physics_process(delta: float) -> void:
-	
+	if is_hurting:
+		animState.travel("Hurt")
+		is_hurting = false
+		return
+
 	if is_attacking:
 		velocity = velocity.move_toward(Vector2.ZERO, 2 * FRICTION * delta)
 		return
@@ -37,6 +42,7 @@ func _physics_process(delta: float) -> void:
 		animTree.set("parameters/Walk/blend_position", input_vector)
 		animTree.set("parameters/Idle/blend_position", input_vector.x)
 		animTree.set("parameters/Attack/blend_position", input_vector)
+		animTree.set("parameters/Hurt/blend_position", input_vector)
 		animState.travel("Walk")
 	else:
 		# decelerate
@@ -56,4 +62,6 @@ func attack_anim_finished() -> void:
 	is_attacking = false
 
 func _on_Hurtbox_area_entered(_area: Area2D) -> void:
+	is_hurting = true
 	PlayerHealthMgr.current_health -= 1
+	print(animState.get_current_node ( ) )
