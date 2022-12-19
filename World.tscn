@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://_Assets/placeholder.png" type="Texture" id=2]
@@ -253,6 +253,8 @@ points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
 4/shapes = [  ]
 4/z_index = 0
 
+[sub_resource type="AnimationNodeStateMachinePlayback" id=17]
+
 [node name="World" type="Node2D"]
 
 [node name="FloorTileMap" type="TileMap" parent="."]
@@ -284,6 +286,9 @@ remote_path = NodePath("../../../Camera2D")
 [node name="Orc" parent="YSort/Orcs" instance=ExtResource( 5 )]
 position = Vector2( 141, 51 )
 
+[node name="AnimationTree" parent="YSort/Orcs/Orc" index="3"]
+parameters/playback = SubResource( 17 )
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 48, 41 )
 current = true
@@ -292,3 +297,7 @@ smoothing_enabled = true
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="HealthUI" parent="HUD" instance=ExtResource( 6 )]
+
+[editable path="YSort/Orcs/Orc"]
+[editable path="YSort/Orcs/Orc/Hurtbox"]
+[editable path="YSort/Orcs/Orc/Hitbox"]

@@ -4,11 +4,13 @@ onready var playerDetector: = $PlayerDetector
 onready var attackDetector: = $AttackDetector
 onready var healthManager: = $HealthManager
 onready var animTree: = $AnimationTree
+onready var attackTimer: = $AttackCooldown
 onready var animState = animTree.get("parameters/playback")
 
 const ACCELERATION: = 450
 const MAX_SPEED: = 20
 const FRICTION: = 500
+export var attack_cooldown: = 2.0
 
 var velocity: = Vector2.ZERO
 var is_attacking: = false
@@ -19,6 +21,7 @@ var current_state = IDLE
 func _ready() -> void:
 	animTree.active = true;
 	healthManager.connect("died", self, "die")
+	attackTimer.start(attack_cooldown)
 
 func _physics_process(delta: float) -> void:
 	match current_state:
@@ -31,6 +34,7 @@ func _physics_process(delta: float) -> void:
 				animTree.set("parameters/Walk/blend_position", direction)
 				animTree.set("parameters/Idle/blend_position", direction.x)
 				animTree.set("parameters/Attack/blend_position", direction)
+				animTree.set("parameters/Die/blend_position", direction)
 				animState.travel("Walk")
 			seek_player()
 		IDLE:
@@ -48,15 +52,25 @@ func attack_anim_finished() -> void:
 	current_state = IDLE
 
 func seek_player() -> void:
+	if is_attacking: return
 	if attackDetector.player_in_range():
 		if (current_state != ATTACKING):
 			animState.travel("Attack")
+			attackTimer.start(attack_cooldown)
+			is_attacking = true
 		current_state = ATTACKING
 	else:
 		current_state = CHASING if playerDetector.can_see_player() else IDLE
 
 func die() -> void:
-	queue_free()
+	animState.travel("Die")
 
 func _on_Hurtbox_area_entered(_area: Area2D) -> void:
 	$HealthManager.current_health -= 1
+
+func death_anim_finished() -> void:
+	queue_free()
+
+
+func _on_AttackCooldown_timeout() -> void:
+	is_attacking = false

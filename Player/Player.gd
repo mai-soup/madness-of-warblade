@@ -10,7 +10,7 @@ const MAX_SPEED: = 40
 const FRICTION: = 500
 
 var velocity: = Vector2.ZERO
-var is_attacking: = false
+export var is_attacking: = false
 
 func _ready() -> void:
 	animTree.active = true;
@@ -30,7 +30,6 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("attack"):
 		animState.travel("Attack")
-		is_attacking = true
 		return
 		
 	if input_vector != Vector2.ZERO:
