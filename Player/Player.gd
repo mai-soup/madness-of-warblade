@@ -52,10 +52,16 @@ func move() -> void:
 	velocity = move_and_slide(velocity)
 
 func die() -> void:
-	queue_free()
+	animTree.active = false
+	blinkAnimPlayer.queue_free()
+	hurtBox.queue_free()
+	$AnimationPlayer.play("DeathBottomRight")
 
 func attack_anim_finished() -> void:
 	is_attacking = false
+
+func death_anim_finished() -> void:
+	queue_free()
 
 func _on_Hurtbox_area_entered(_area: Area2D) -> void:
 	animState.call_deferred("travel", "Hurt")
