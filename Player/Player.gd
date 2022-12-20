@@ -12,6 +12,7 @@ const FRICTION: = 500
 var last_horizontal_direction
 var velocity: = Vector2.ZERO
 export var is_attacking: = false
+export var damage: = 1
 
 func _ready() -> void:
 	animTree.active = true;
@@ -68,9 +69,9 @@ func attack_anim_finished() -> void:
 func death_anim_finished() -> void:
 	queue_free()
 
-func _on_Hurtbox_area_entered(_area: Area2D) -> void:
+func _on_Hurtbox_area_entered(area: Area2D) -> void:
 	animState.call_deferred("travel", "Hurt")
-	PlayerHealthMgr.current_health -= 1
+	PlayerHealthMgr.current_health -= area.get_parent().damage
 	hurtBox.start_invincibility(1)
 
 func _on_Hurtbox_invincibility_started() -> void:

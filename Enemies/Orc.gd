@@ -11,6 +11,7 @@ const ACCELERATION: = 450
 const MAX_SPEED: = 20
 const FRICTION: = 500
 export var attack_cooldown: = 2.0
+export var damage: = 1
 
 var last_horizontal_direction: = -1
 var direction: = Vector2.ZERO
@@ -73,8 +74,8 @@ func seek_player() -> void:
 func die() -> void:
 	animState.travel("Die")
 
-func _on_Hurtbox_area_entered(_area: Area2D) -> void:
-	$HealthManager.current_health -= 1
+func _on_Hurtbox_area_entered(area: Area2D) -> void:
+	$HealthManager.current_health -= area.get_parent().damage
 
 func death_anim_finished() -> void:
 	queue_free()
