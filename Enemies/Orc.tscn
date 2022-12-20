@@ -806,7 +806,7 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 9 )
 parameters/Attack/blend_position = Vector2( 0, 0 )
 parameters/Die/blend_position = Vector2( -0.00244898, 0.00578034 )
-parameters/Idle/blend_position = Vector2( 0, 0 )
+parameters/Idle/blend_position = -0.00996166
 parameters/Walk/blend_position = Vector2( 0, 0 )
 
 [node name="PlayerDetector" parent="." instance=ExtResource( 3 )]

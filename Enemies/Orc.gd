@@ -12,6 +12,8 @@ const MAX_SPEED: = 20
 const FRICTION: = 500
 export var attack_cooldown: = 2.0
 
+var last_horizontal_direction: = -1
+var direction: = Vector2.ZERO
 var velocity: = Vector2.ZERO
 var is_attacking: = false
 
@@ -29,10 +31,16 @@ func _physics_process(delta: float) -> void:
 			velocity = velocity.move_toward(Vector2.ZERO, 2 * FRICTION * delta)
 		CHASING:
 			if playerDetector.can_see_player():
-				var direction: = global_position.direction_to(playerDetector.player.global_position)
+				direction = global_position.direction_to(playerDetector.player.global_position)
 				velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta)
+				
+				if direction.x > 0:
+					last_horizontal_direction = 1
+				elif direction.x < 0:
+					last_horizontal_direction = -1
+				
 				animTree.set("parameters/Walk/blend_position", direction)
-				animTree.set("parameters/Idle/blend_position", direction.x)
+				animTree.set("parameters/Idle/blend_position", last_horizontal_direction)
 				animTree.set("parameters/Attack/blend_position", direction)
 				animTree.set("parameters/Die/blend_position", direction)
 				animState.travel("Walk")
