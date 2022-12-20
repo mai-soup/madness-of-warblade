@@ -902,7 +902,7 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 11 )
 parameters/Attack/blend_position = Vector2( 0, 0 )
 parameters/Hurt/blend_position = Vector2( 0, 0 )
-parameters/Idle/blend_position = -0.440613
+parameters/Idle/blend_position = 0.000766277
 parameters/Walk/blend_position = Vector2( -0.00325763, -0.00578034 )
 
 [node name="Hitbox" parent="." instance=ExtResource( 5 )]

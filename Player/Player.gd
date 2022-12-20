@@ -9,15 +9,16 @@ const ACCELERATION: = 500
 const MAX_SPEED: = 40
 const FRICTION: = 500
 
+var last_horizontal_direction
 var velocity: = Vector2.ZERO
 export var is_attacking: = false
 
 func _ready() -> void:
 	animTree.active = true;
 	PlayerHealthMgr.connect("died", self, "die")
+	last_horizontal_direction = -1
 
 func _physics_process(delta: float) -> void:
-
 	if is_attacking:
 		velocity = velocity.move_toward(Vector2.ZERO, 2 * FRICTION * delta)
 		return
@@ -33,12 +34,16 @@ func _physics_process(delta: float) -> void:
 		return
 		
 	if input_vector != Vector2.ZERO:
+		if input_vector.x != 0:
+			last_horizontal_direction = input_vector.x
+		
+		var anim_direction_vector = Vector2(last_horizontal_direction, input_vector.y)
 		# accelerate
 		velocity = velocity.move_toward(input_vector * MAX_SPEED, ACCELERATION * delta)
-		animTree.set("parameters/Walk/blend_position", input_vector)
-		animTree.set("parameters/Idle/blend_position", input_vector.x)
-		animTree.set("parameters/Attack/blend_position", input_vector)
-		animTree.set("parameters/Hurt/blend_position", input_vector)
+		animTree.set("parameters/Walk/blend_position", anim_direction_vector)
+		animTree.set("parameters/Idle/blend_position", anim_direction_vector.x)
+		animTree.set("parameters/Attack/blend_position", anim_direction_vector)
+		animTree.set("parameters/Hurt/blend_position", anim_direction_vector)
 		animState.travel("Walk")
 	else:
 		# decelerate
