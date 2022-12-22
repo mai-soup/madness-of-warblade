@@ -952,7 +952,7 @@ states/Walk/node = SubResource( 9 )
 states/Walk/position = Vector2( 420, 30 )
 transitions = [ "Idle", "Walk", SubResource( 26 ), "Walk", "Idle", SubResource( 27 ), "Walk", "Attack", SubResource( 39 ), "Idle", "Attack", SubResource( 40 ), "Attack", "Idle", SubResource( 41 ), "Walk", "Hurt", SubResource( 52 ), "Idle", "Hurt", SubResource( 53 ), "Attack", "Hurt", SubResource( 54 ), "Hurt", "Idle", SubResource( 55 ) ]
 start_node = "Idle"
-graph_offset = Vector2( -335.229, 25.2741 )
+graph_offset = Vector2( -335.229, -34.0348 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=11]
 
