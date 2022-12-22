@@ -43,6 +43,7 @@ func _physics_process(delta: float) -> void:
 			last_horizontal_direction = input_vector.x
 		
 		var anim_direction_vector = Vector2(last_horizontal_direction, input_vector.y)
+		$Hitbox.knockback_vector = anim_direction_vector
 		# accelerate
 		velocity = velocity.move_toward(input_vector * MAX_SPEED, ACCELERATION * delta)
 		animTree.set("parameters/Walk/blend_position", anim_direction_vector)

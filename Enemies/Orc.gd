@@ -9,10 +9,12 @@ onready var animState = animTree.get("parameters/playback")
 
 const ACCELERATION: = 450
 const MAX_SPEED: = 20
+const KNOCKBACK_AMOUNT: = 80
 const FRICTION: = 500
 export var attack_cooldown: = 2.0
 export var damage: = 1
 
+var knockback: = Vector2.ZERO
 var last_horizontal_direction: = -1
 var direction: = Vector2.ZERO
 var velocity: = Vector2.ZERO
@@ -29,6 +31,10 @@ func _ready() -> void:
 	attackTimer.start(attack_cooldown)
 
 func _physics_process(delta: float) -> void:
+	# add friction to knockback
+	knockback = knockback.move_toward(Vector2.ZERO, delta * FRICTION)
+	knockback = move_and_slide(knockback)
+	
 	match current_state:
 		ATTACKING:
 			velocity = velocity.move_toward(Vector2.ZERO, 2 * FRICTION * delta)
@@ -86,6 +92,7 @@ func die() -> void:
 
 func _on_Hurtbox_area_entered(area: Area2D) -> void:
 	$HealthManager.current_health -= area.get_parent().damage
+	knockback = area.knockback_vector * KNOCKBACK_AMOUNT
 	print($HealthManager.current_health)
 	if $HealthManager.current_health > 0:
 		animState.call_deferred("travel", "Hurt")
