@@ -16,6 +16,10 @@ func start_invincibility(duration: float) -> void:
 	emit_signal("invincibility_started")
 	timer.start(duration)
 
+func cancel_timer() -> void:
+	timer.paused = true
+	collShape.queue_free()
+
 func _on_Timer_timeout() -> void:
 	self.is_invincible = false
 	emit_signal("invincibility_ended")

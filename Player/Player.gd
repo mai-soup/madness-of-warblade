@@ -11,8 +11,11 @@ const FRICTION: = 500
 
 var last_horizontal_direction
 var velocity: = Vector2.ZERO
-export var is_attacking: = false
+var is_attacking: = false
+# for deferring first walk sound by 0.2s
+var started_walking = false
 export var damage: = 1
+var ded: = false
 
 func _ready() -> void:
 	animTree.active = true;
@@ -20,6 +23,7 @@ func _ready() -> void:
 	last_horizontal_direction = -1
 
 func _physics_process(delta: float) -> void:
+	if ded: return
 	if is_attacking:
 		velocity = velocity.move_toward(Vector2.ZERO, 2 * FRICTION * delta)
 		return
@@ -46,10 +50,20 @@ func _physics_process(delta: float) -> void:
 		animTree.set("parameters/Attack/blend_position", anim_direction_vector)
 		animTree.set("parameters/Hurt/blend_position", anim_direction_vector)
 		animState.travel("Walk")
+		
+		if $WalkTimer.time_left <= 0:
+			if started_walking:
+				$WalkAudioPlayer.pitch_scale = rand_range(0.8, 1.2)
+				$WalkAudioPlayer.play()
+
+			$WalkTimer.start(0.4 if started_walking else 0.2)
+			started_walking = true
+			
 	else:
 		# decelerate
 		animState.travel("Idle")
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
+		started_walking = false
 	
 	move()
 
@@ -58,9 +72,10 @@ func move() -> void:
 	velocity = move_and_slide(velocity)
 
 func die() -> void:
+	ded = true
 	animTree.active = false
 	blinkAnimPlayer.queue_free()
-	hurtBox.queue_free()
+	hurtBox.cancel_timer()
 	$AnimationPlayer.play("DeathBottomRight")
 
 func attack_anim_finished() -> void:
@@ -70,9 +85,10 @@ func death_anim_finished() -> void:
 	queue_free()
 
 func _on_Hurtbox_area_entered(area: Area2D) -> void:
-	animState.call_deferred("travel", "Hurt")
 	PlayerHealthMgr.current_health -= area.get_parent().damage
-	hurtBox.start_invincibility(1)
+	if PlayerHealthMgr.current_health > 0:
+		animState.call_deferred("travel", "Hurt")
+		hurtBox.start_invincibility(1)
 
 func _on_Hurtbox_invincibility_started() -> void:
 	blinkAnimPlayer.play("Start")

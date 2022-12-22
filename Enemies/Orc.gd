@@ -17,6 +17,8 @@ var last_horizontal_direction: = -1
 var direction: = Vector2.ZERO
 var velocity: = Vector2.ZERO
 var is_attacking: = false
+# for deferring first walk sound by 0.2s
+var started_walking = false
 
 enum { IDLE, CHASING, ATTACKING }
 var current_state = IDLE
@@ -45,10 +47,18 @@ func _physics_process(delta: float) -> void:
 				animTree.set("parameters/Attack/blend_position", direction)
 				animTree.set("parameters/Die/blend_position", direction)
 				animState.travel("Walk")
+				if $WalkTimer.time_left <= 0:
+					if started_walking:
+						$WalkAudioPlayer.pitch_scale = rand_range(0.8, 1.2)
+						$WalkAudioPlayer.play()
+
+					$WalkTimer.start(0.4 if started_walking else 0.2)
+					started_walking = true
 			seek_player()
 		IDLE:
 			velocity = velocity.move_toward(Vector2.ZERO, 2 * FRICTION * delta)
 			animState.travel("Idle")
+			started_walking = false
 			seek_player()
 	
 	move_and_slide(velocity)
