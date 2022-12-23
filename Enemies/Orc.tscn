@@ -1127,6 +1127,8 @@ one_shot = true
 volume_db = -8.0
 
 [node name="RecalcPathTimer" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 

@@ -6,6 +6,7 @@ onready var healthManager: = $HealthManager
 onready var animTree: = $AnimationTree
 onready var attackTimer: = $AttackCooldown
 onready var animState = animTree.get("parameters/playback")
+onready var recalc_path_timer: = $RecalcPathTimer
 
 const ACCELERATION: = 450
 const MAX_SPEED: = 20
@@ -32,6 +33,7 @@ func _ready() -> void:
 	animTree.active = true;
 	healthManager.connect("died", self, "die")
 	attackTimer.start(attack_cooldown)
+	recalc_path_timer.connect("timeout", self, "update_pathfinding")
 
 func _physics_process(delta: float) -> void:
 	# add friction to knockback
@@ -43,8 +45,6 @@ func _physics_process(delta: float) -> void:
 			velocity = velocity.move_toward(Vector2.ZERO, 2 * FRICTION * delta)
 		CHASING:
 			if playerDetector.can_see_player():
-				nav_agent.set_target_location(playerDetector.player.global_position)
-				direction = global_position.direction_to(nav_agent.get_next_location())
 				velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta)
 				
 				if direction.x > 0:
@@ -106,3 +106,9 @@ func death_anim_finished() -> void:
 
 func _on_AttackCooldown_timeout() -> void:
 	is_attacking = false
+
+func update_pathfinding() -> void:
+	if (!playerDetector.can_see_player()): return
+	
+	nav_agent.set_target_location(playerDetector.player.global_position)
+	direction = global_position.direction_to(nav_agent.get_next_location())
