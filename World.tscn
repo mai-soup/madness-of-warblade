@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://_Assets/placeholder.png" type="Texture" id=2]
@@ -7,6 +7,31 @@
 [ext_resource path="res://Enemies/Orc.tscn" type="PackedScene" id=5]
 [ext_resource path="res://UI/HealthUI.tscn" type="PackedScene" id=6]
 [ext_resource path="res://_Assets/SFX/17_orc_atk_sword_1.wav" type="AudioStream" id=7]
+
+[sub_resource type="NavigationPolygon" id=50]
+vertices = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 ) ]
+
+[sub_resource type="NavigationPolygon" id=51]
+vertices = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 ) ]
+
+[sub_resource type="NavigationPolygon" id=52]
+vertices = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 ) ]
+
+[sub_resource type="NavigationPolygon" id=53]
+vertices = PoolVector2Array( 8, 7.94505, 0, 8, 0, 0, 8, 0 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( 8, 7.94505, 0, 8, 0, 0, 8, 0 ) ]
+
+[sub_resource type="NavigationPolygon" id=54]
+vertices = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 ) ]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Minifantasy_DungeonFloorTiles.png 0"
@@ -19,7 +44,7 @@
 0/autotile/tile_size = Vector2( 8, 8 )
 0/autotile/spacing = 0
 0/autotile/occluder_map = [  ]
-0/autotile/navpoly_map = [  ]
+0/autotile/navpoly_map = [ Vector2( 0, 0 ), SubResource( 50 ), Vector2( 1, 0 ), SubResource( 51 ), Vector2( 2, 0 ), SubResource( 52 ), Vector2( 3, 0 ), SubResource( 53 ), Vector2( 4, 0 ), SubResource( 54 ) ]
 0/autotile/priority_map = [ Vector3( 0, 0, 12 ), Vector3( 4, 0, 3 ) ]
 0/autotile/z_index_map = [  ]
 0/occluder_offset = Vector2( 0, 0 )
@@ -1650,6 +1675,11 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=49]
 
+[sub_resource type="NavigationPolygon" id=55]
+vertices = PoolVector2Array( 324, 19, 326, 77, 250, 76, 250, 54, 251, 43, 3, 76, 2, 18, 141, 19, 141, 41, 142, 77, 142, 53, 155, 41, 154, 53, 155, 34, 238, 35, 238, 43, 237, 54, 251, 19, 154, 62, 237, 62 )
+polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ), PoolIntArray( 5, 6, 7, 8 ), PoolIntArray( 9, 5, 8, 10 ), PoolIntArray( 10, 8, 11, 12 ), PoolIntArray( 11, 13, 14, 15, 16 ), PoolIntArray( 4, 17, 0 ), PoolIntArray( 15, 4, 3, 16 ), PoolIntArray( 18, 12, 11, 16, 19 ) ]
+outlines = [ PoolVector2Array( 2, 18, 141, 19, 141, 41, 155, 41, 155, 34, 238, 35, 238, 43, 251, 43, 251, 19, 324, 19, 326, 77, 250, 76, 250, 54, 237, 54, 237, 62, 154, 62, 154, 53, 142, 53, 142, 77, 3, 76 ) ]
+
 [node name="World" type="Node2D"]
 
 [node name="FloorTileMap" type="TileMap" parent="."]
@@ -1676,18 +1706,20 @@ remote_path = NodePath("../../../Camera2D")
 
 [node name="Tables" type="YSort" parent="YSort"]
 
-[node name="Orcs" type="YSort" parent="YSort"]
+[node name="Navigation2D" type="Navigation2D" parent="YSort"]
 
-[node name="Orc" parent="YSort/Orcs" instance=ExtResource( 5 )]
+[node name="Orcs" type="YSort" parent="YSort/Navigation2D"]
+
+[node name="Orc" parent="YSort/Navigation2D/Orcs" instance=ExtResource( 5 )]
 position = Vector2( 141, 51 )
 
-[node name="AnimationTree" parent="YSort/Orcs/Orc" index="3"]
+[node name="AnimationTree" parent="YSort/Navigation2D/Orcs/Orc" index="3"]
 parameters/playback = SubResource( 17 )
 
-[node name="Orc2" parent="YSort/Orcs" instance=ExtResource( 5 )]
+[node name="Orc2" parent="YSort/Navigation2D/Orcs" instance=ExtResource( 5 )]
 position = Vector2( 311, 28 )
 
-[node name="AnimationPlayer" parent="YSort/Orcs/Orc2" index="2"]
+[node name="AnimationPlayer" parent="YSort/Navigation2D/Orcs/Orc2" index="2"]
 anims/AttackDownLeft = SubResource( 18 )
 anims/AttackDownRight = SubResource( 19 )
 anims/AttackTopLeft = SubResource( 20 )
@@ -1704,13 +1736,13 @@ anims/WalkDownRight = SubResource( 30 )
 anims/WalkUpLeft = SubResource( 31 )
 anims/WalkUpRight = SubResource( 32 )
 
-[node name="AnimationTree" parent="YSort/Orcs/Orc2" index="3"]
+[node name="AnimationTree" parent="YSort/Navigation2D/Orcs/Orc2" index="3"]
 parameters/playback = SubResource( 33 )
 
-[node name="Orc3" parent="YSort/Orcs" instance=ExtResource( 5 )]
+[node name="Orc3" parent="YSort/Navigation2D/Orcs" instance=ExtResource( 5 )]
 position = Vector2( 316, 75 )
 
-[node name="AnimationPlayer" parent="YSort/Orcs/Orc3" index="2"]
+[node name="AnimationPlayer" parent="YSort/Navigation2D/Orcs/Orc3" index="2"]
 anims/AttackDownLeft = SubResource( 34 )
 anims/AttackDownRight = SubResource( 35 )
 anims/AttackTopLeft = SubResource( 36 )
@@ -1727,8 +1759,11 @@ anims/WalkDownRight = SubResource( 46 )
 anims/WalkUpLeft = SubResource( 47 )
 anims/WalkUpRight = SubResource( 48 )
 
-[node name="AnimationTree" parent="YSort/Orcs/Orc3" index="3"]
+[node name="AnimationTree" parent="YSort/Navigation2D/Orcs/Orc3" index="3"]
 parameters/playback = SubResource( 49 )
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="YSort/Navigation2D"]
+navpoly = SubResource( 55 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 48, 41 )
@@ -1739,12 +1774,12 @@ smoothing_enabled = true
 
 [node name="HealthUI" parent="HUD" instance=ExtResource( 6 )]
 
-[editable path="YSort/Orcs/Orc"]
-[editable path="YSort/Orcs/Orc/Hurtbox"]
-[editable path="YSort/Orcs/Orc/Hitbox"]
-[editable path="YSort/Orcs/Orc2"]
-[editable path="YSort/Orcs/Orc2/Hurtbox"]
-[editable path="YSort/Orcs/Orc2/Hitbox"]
-[editable path="YSort/Orcs/Orc3"]
-[editable path="YSort/Orcs/Orc3/Hurtbox"]
-[editable path="YSort/Orcs/Orc3/Hitbox"]
+[editable path="YSort/Navigation2D/Orcs/Orc"]
+[editable path="YSort/Navigation2D/Orcs/Orc/Hurtbox"]
+[editable path="YSort/Navigation2D/Orcs/Orc/Hitbox"]
+[editable path="YSort/Navigation2D/Orcs/Orc2"]
+[editable path="YSort/Navigation2D/Orcs/Orc2/Hurtbox"]
+[editable path="YSort/Navigation2D/Orcs/Orc2/Hitbox"]
+[editable path="YSort/Navigation2D/Orcs/Orc3"]
+[editable path="YSort/Navigation2D/Orcs/Orc3/Hurtbox"]
+[editable path="YSort/Navigation2D/Orcs/Orc3/Hitbox"]

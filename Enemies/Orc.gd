@@ -14,6 +14,9 @@ const FRICTION: = 500
 export var attack_cooldown: = 2.0
 export var damage: = 1
 
+#pathfinding
+onready var nav_agent: = $NavigationAgent2D
+
 var knockback: = Vector2.ZERO
 var last_horizontal_direction: = -1
 var direction: = Vector2.ZERO
@@ -40,7 +43,8 @@ func _physics_process(delta: float) -> void:
 			velocity = velocity.move_toward(Vector2.ZERO, 2 * FRICTION * delta)
 		CHASING:
 			if playerDetector.can_see_player():
-				direction = global_position.direction_to(playerDetector.player.global_position)
+				nav_agent.set_target_location(playerDetector.player.global_position)
+				direction = global_position.direction_to(nav_agent.get_next_location())
 				velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta)
 				
 				if direction.x > 0:
