@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const OrcDeathEffect = preload("res://Enemies/OrcDeathEffect.tscn")
+
 onready var playerDetector: = $PlayerDetector
 onready var attackDetector: = $AttackDetector
 onready var healthManager: = $HealthManager
@@ -56,7 +58,6 @@ func _physics_process(delta: float) -> void:
 				animTree.set("parameters/Walk/blend_position", direction)
 				animTree.set("parameters/Idle/blend_position", last_horizontal_direction)
 				animTree.set("parameters/Attack/blend_position", direction)
-				animTree.set("parameters/Die/blend_position", direction)
 				animState.travel("Walk")
 				if $WalkTimer.time_left <= 0:
 					if started_walking:
@@ -93,17 +94,16 @@ func seek_player() -> void:
 		current_state = CHASING if playerDetector.can_see_player() else IDLE
 
 func die() -> void:
-	animState.travel("Die")
+	queue_free()
+	var deathEffect = OrcDeathEffect.instance()
+	get_parent().add_child(deathEffect)
+	deathEffect.global_position = global_position
 
 func _on_Hurtbox_area_entered(area: Area2D) -> void:
 	$HealthManager.current_health -= area.get_parent().damage
 	knockback = area.knockback_vector * KNOCKBACK_AMOUNT
-	print($HealthManager.current_health)
 	if $HealthManager.current_health > 0:
 		animState.call_deferred("travel", "Hurt")
-
-func death_anim_finished() -> void:
-	queue_free()
 
 func _on_AttackCooldown_timeout() -> void:
 	is_attacking = false
