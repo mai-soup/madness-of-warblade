@@ -8,9 +8,11 @@ onready var animState = animTree.get("parameters/playback")
 const ACCELERATION: = 500
 const MAX_SPEED: = 40
 const FRICTION: = 500
+const KNOCKBACK_AMOUNT: = 65
 
 var last_horizontal_direction
 var velocity: = Vector2.ZERO
+var knockback: = Vector2.ZERO
 var is_attacking: = false
 # for deferring first walk sound by 0.2s
 var started_walking = false
@@ -24,6 +26,11 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if ded: return
+	
+	# add friction to knockback
+	knockback = knockback.move_toward(Vector2.ZERO, delta * FRICTION)
+	knockback = move_and_slide(knockback)
+	
 	if is_attacking:
 		velocity = velocity.move_toward(Vector2.ZERO, 2 * FRICTION * delta)
 		return
@@ -87,6 +94,7 @@ func death_anim_finished() -> void:
 
 func _on_Hurtbox_area_entered(area: Area2D) -> void:
 	PlayerHealthMgr.current_health -= area.get_parent().damage
+	knockback = area.knockback_vector * KNOCKBACK_AMOUNT
 	if PlayerHealthMgr.current_health > 0:
 		animState.call_deferred("travel", "Hurt")
 		hurtBox.start_invincibility(1)

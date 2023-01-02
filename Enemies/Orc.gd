@@ -52,6 +52,7 @@ func _physics_process(delta: float) -> void:
 				elif direction.x < 0:
 					last_horizontal_direction = -1
 				
+				$Hitbox.knockback_vector = direction
 				animTree.set("parameters/Walk/blend_position", direction)
 				animTree.set("parameters/Idle/blend_position", last_horizontal_direction)
 				animTree.set("parameters/Attack/blend_position", direction)
