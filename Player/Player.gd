@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const PlayerDeathEffect = preload("res://Player/PlayerDeathEffect.tscn")
+
 onready var animTree: = $AnimationTree
 onready var hurtBox: = $Hurtbox
 onready var blinkAnimPlayer: = $BlinkAnimPlayer
@@ -17,7 +19,6 @@ var is_attacking: = false
 # for deferring first walk sound by 0.2s
 var started_walking = false
 export var damage: = 1
-var ded: = false
 
 func _ready() -> void:
 	animTree.active = true;
@@ -25,8 +26,6 @@ func _ready() -> void:
 	last_horizontal_direction = -1
 
 func _physics_process(delta: float) -> void:
-	if ded: return
-	
 	# add friction to knockback
 	knockback = knockback.move_toward(Vector2.ZERO, delta * FRICTION)
 	knockback = move_and_slide(knockback)
@@ -80,11 +79,10 @@ func move() -> void:
 	velocity = move_and_slide(velocity)
 
 func die() -> void:
-	ded = true
-	animTree.active = false
-	blinkAnimPlayer.queue_free()
-	hurtBox.cancel_timer()
-	$AnimationPlayer.play("DeathBottomRight")
+	queue_free()
+	var deathEffect = PlayerDeathEffect.instance()
+	get_parent().add_child(deathEffect)
+	deathEffect.global_position = global_position
 
 func attack_anim_finished() -> void:
 	is_attacking = false
