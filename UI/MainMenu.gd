@@ -1,7 +1,7 @@
 extends Control
 
 func _ready() -> void:
-	$VBoxContainer/StartBtn.grab_focus()
+	$MarginContainer/VBoxContainer/StartBtn.grab_focus()
 
 func _on_StartBtn_pressed() -> void:
 	get_tree().change_scene("res://World.tscn")

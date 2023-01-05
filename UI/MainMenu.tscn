@@ -1,39 +1,55 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://UI/MainMenu.gd" type="Script" id=1]
+[ext_resource path="res://UI/MainMenuTheme.tres" type="Theme" id=2]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = -72.0
-margin_right = 44.0
-margin_bottom = -4.0
+margin_top = -48.0
+margin_right = 94.0
+margin_bottom = -22.0
 
-[node name="StartBtn" type="Button" parent="VBoxContainer"]
-margin_right = 41.0
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 90.0
+margin_bottom = 44.0
+size_flags_vertical = 4
+theme = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_right = 90.0
+margin_bottom = 8.0
+text = "Madness of Warblade"
+
+[node name="StartBtn" type="Button" parent="MarginContainer/VBoxContainer"]
+margin_top = 12.0
+margin_right = 90.0
 margin_bottom = 20.0
 focus_neighbour_top = NodePath("../QuitBtn")
 text = "Start"
+align = 0
 
-[node name="CreditsBtn" type="Button" parent="VBoxContainer"]
+[node name="CreditsBtn" type="Button" parent="MarginContainer/VBoxContainer"]
 margin_top = 24.0
-margin_right = 57.0
-margin_bottom = 44.0
+margin_right = 90.0
+margin_bottom = 32.0
 text = "Credits"
+align = 0
 
-[node name="QuitBtn" type="Button" parent="VBoxContainer"]
-margin_top = 48.0
-margin_right = 40.0
-margin_bottom = 68.0
+[node name="QuitBtn" type="Button" parent="MarginContainer/VBoxContainer"]
+margin_top = 36.0
+margin_right = 90.0
+margin_bottom = 44.0
 focus_neighbour_bottom = NodePath("../StartBtn")
 text = "Quit"
+align = 0
 
-[connection signal="pressed" from="VBoxContainer/StartBtn" to="." method="_on_StartBtn_pressed"]
-[connection signal="pressed" from="VBoxContainer/CreditsBtn" to="." method="_on_CreditsBtn_pressed"]
-[connection signal="pressed" from="VBoxContainer/QuitBtn" to="." method="_on_QuitBtn_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/StartBtn" to="." method="_on_StartBtn_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/CreditsBtn" to="." method="_on_CreditsBtn_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/QuitBtn" to="." method="_on_QuitBtn_pressed"]
