@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://_Assets/placeholder.png" type="Texture" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://Enemies/Orc.tscn" type="PackedScene" id=5]
 [ext_resource path="res://UI/HealthUI.tscn" type="PackedScene" id=6]
 [ext_resource path="res://_Assets/SFX/17_orc_atk_sword_1.wav" type="AudioStream" id=7]
+[ext_resource path="res://UI/PauseMenu.gd" type="Script" id=8]
+[ext_resource path="res://UI/MainMenuTheme.tres" type="Theme" id=9]
 
 [sub_resource type="NavigationPolygon" id=50]
 vertices = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
@@ -1773,6 +1775,57 @@ smoothing_enabled = true
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="HealthUI" parent="HUD" instance=ExtResource( 6 )]
+
+[node name="PauseLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" type="Control" parent="PauseLayer"]
+pause_mode = 2
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+script = ExtResource( 8 )
+
+[node name="BgOverlay" type="ColorRect" parent="PauseLayer/PauseMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.564706 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseLayer/PauseMenu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+theme = ExtResource( 9 )
+
+[node name="Label" type="Label" parent="PauseLayer/PauseMenu/VBoxContainer"]
+margin_right = 40.0
+margin_bottom = 8.0
+input_pass_on_modal_close_click = false
+custom_colors/font_color = Color( 0.74902, 0, 0, 1 )
+text = "PAUSED"
+align = 1
+
+[node name="ResumeButton" type="Button" parent="PauseLayer/PauseMenu/VBoxContainer"]
+margin_top = 12.0
+margin_right = 40.0
+margin_bottom = 20.0
+focus_neighbour_top = NodePath("../QuitButton")
+text = "Resume"
+
+[node name="QuitButton" type="Button" parent="PauseLayer/PauseMenu/VBoxContainer"]
+margin_top = 24.0
+margin_right = 40.0
+margin_bottom = 32.0
+focus_neighbour_bottom = NodePath("../ResumeButton")
+text = "Quit"
+
+[connection signal="pressed" from="PauseLayer/PauseMenu/VBoxContainer/ResumeButton" to="PauseLayer/PauseMenu" method="_on_ResumeButton_pressed"]
+[connection signal="pressed" from="PauseLayer/PauseMenu/VBoxContainer/QuitButton" to="PauseLayer/PauseMenu" method="_on_QuitButton_pressed"]
 
 [editable path="YSort/Navigation2D/Orcs/Orc"]
 [editable path="YSort/Navigation2D/Orcs/Orc/Hurtbox"]
