@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/gulp.mp3-70dff6c8d675f32567d0881418029625.mp3str"
+
+[deps]
+
+source_file="res://_Assets/SFX/gulp.mp3"
+dest_files=[ "res://.import/gulp.mp3-70dff6c8d675f32567d0881418029625.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

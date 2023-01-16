@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=2]
+[gd_scene load_steps=66 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://_Assets/placeholder.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://_Assets/SFX/17_orc_atk_sword_1.wav" type="AudioStream" id=7]
 [ext_resource path="res://UI/PauseMenu.gd" type="Script" id=8]
 [ext_resource path="res://UI/MainMenuTheme.tres" type="Theme" id=9]
+[ext_resource path="res://UI/PotionUI.tscn" type="PackedScene" id=10]
 
 [sub_resource type="NavigationPolygon" id=50]
 vertices = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
@@ -1775,6 +1776,8 @@ smoothing_enabled = true
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="HealthUI" parent="HUD" instance=ExtResource( 6 )]
+
+[node name="PotionUI" parent="HUD" instance=ExtResource( 10 )]
 
 [node name="PauseLayer" type="CanvasLayer" parent="."]
 
