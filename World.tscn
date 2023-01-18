@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=2]
+[gd_scene load_steps=68 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://_Assets/placeholder.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://UI/MainMenuTheme.tres" type="Theme" id=9]
 [ext_resource path="res://UI/PotionUI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Props/Sign.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Props/Chest.tscn" type="PackedScene" id=12]
 
 [sub_resource type="NavigationPolygon" id=50]
 vertices = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
@@ -1715,6 +1716,17 @@ position = Vector2( 48, 41 )
 remote_path = NodePath("../../../Camera2D")
 
 [node name="Tables" type="YSort" parent="YSort"]
+
+[node name="Chests" type="YSort" parent="YSort"]
+
+[node name="Chest" parent="YSort/Chests" instance=ExtResource( 12 )]
+position = Vector2( 18, 19 )
+
+[node name="Chest2" parent="YSort/Chests" instance=ExtResource( 12 )]
+position = Vector2( 15, 71 )
+
+[node name="Chest3" parent="YSort/Chests" instance=ExtResource( 12 )]
+position = Vector2( 86, 50 )
 
 [node name="Navigation2D" type="Navigation2D" parent="YSort"]
 
