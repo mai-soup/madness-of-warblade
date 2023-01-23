@@ -32,6 +32,7 @@ scale_curve = SubResource( 4 )
 color = Color( 0.996078, 0.447059, 0.12549, 1 )
 
 [node name="Candle" type="Node2D"]
+z_index = 1
 
 [node name="Flame" type="Sprite" parent="."]
 position = Vector2( 1, -7 )
