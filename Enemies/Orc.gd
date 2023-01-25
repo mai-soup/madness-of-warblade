@@ -11,11 +11,11 @@ onready var animState = animTree.get("parameters/playback")
 onready var recalc_path_timer: = $RecalcPathTimer
 
 const ACCELERATION: = 450
-const MAX_SPEED: = 20
+var MAX_SPEED: = 45
 const KNOCKBACK_AMOUNT: = 80
 const FRICTION: = 500
 export var attack_cooldown: = 2.0
-export var damage: = 1
+var damage: = 1
 
 #pathfinding
 onready var nav_agent: = $NavigationAgent2D
@@ -45,6 +45,7 @@ func _physics_process(delta: float) -> void:
 	match current_state:
 		ATTACKING:
 			velocity = velocity.move_toward(Vector2.ZERO, 2 * FRICTION * delta)
+			seek_player()
 		CHASING:
 			if playerDetector.can_see_player():
 				velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta)
@@ -102,6 +103,7 @@ func die() -> void:
 func _on_Hurtbox_area_entered(area: Area2D) -> void:
 	$HealthManager.current_health -= area.get_parent().damage
 	knockback = area.knockback_vector * KNOCKBACK_AMOUNT
+	is_attacking = false;
 	if $HealthManager.current_health > 0:
 		animState.call_deferred("travel", "Hurt")
 
